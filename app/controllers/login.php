@@ -1,7 +1,7 @@
 <?php
 class Login extends Controller{
     function index() {
-        
+
         if(isset($_POST['login'])){
             $this->form_validate->addValidation("username","req","Hey! thats not fair! tell me your username!");
             $this->form_validate->addValidation("password","req","Will you please tell me your password.");
