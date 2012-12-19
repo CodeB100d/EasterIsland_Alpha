@@ -7,7 +7,7 @@ define('APP_PATH', 'app/');
 
 define('DB_TYPE', 'mysql');
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'sweet');
+define('DB_NAME', 'dbeasterisland');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 
