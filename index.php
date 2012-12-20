@@ -23,3 +23,5 @@ $bootstrap = new Bootstrap();
 //$bootstrap->setErrorFile();
 
 $bootstrap->init();
+
+//added a comment
