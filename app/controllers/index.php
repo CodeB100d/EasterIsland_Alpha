@@ -1,10 +1,12 @@
 <?php
 class Index extends Controller {
 
-    function __construct() {
-        parent::__construct();
+    function index() {
+       echo "Welcome to Easter ISland Alpha!";
     }
-    
+    function blahblah(){
+       echo "blah blah";
+    }
     
     
 }

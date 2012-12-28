@@ -25,7 +25,7 @@ class Bootstrap {
             $this->_loadDefaultController();
             return false;
         }
-
+        
         $this->_loadExistingController();
         $this->_callControllerMethod();
     }
@@ -84,10 +84,13 @@ class Bootstrap {
     {
         require $this->_controllerPath . $this->_defaultFile;
         $this->_controller = new Index();
-        if(method_exists($this->_controller, 'index'))$this->_controller->index();
-        else $this->_error ();
+        if(method_exists($this->_controller, 'index')){
+           $this->_controller;
+        }else{ 
+           $this->_error ();
+        }
     }
-    
+
     /**
      * Load an existing controller if there IS a GET parameter passed
      * 
