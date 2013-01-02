@@ -1,12 +1,12 @@
 <?php
-class Index extends Controller {
-
+class Index extends Controller{
     function index() {
-       echo "Welcome to Easter ISland Alpha!";
+         parent::__construct();
+         $this->view->calendar = $this->calendar->show();
+         $pages = array('index','login');
+         $this->view->render($pages, false);
     }
     function blahblah(){
        echo "blah blah";
     }
-    
-    
 }

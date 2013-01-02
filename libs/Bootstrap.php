@@ -8,7 +8,6 @@ class Bootstrap {
     private $_modelPath = 'app/models/'; // Always include trailing slash
     private $_errorFile = 'error.php';
     private $_defaultFile = 'index.php';
-    
     /**
      * Starts the Bootstrap
      * 
@@ -21,7 +20,8 @@ class Bootstrap {
 
         // Load the default controller if no URL is set
         // eg: Visit http://localhost it loads Default Controller
-        if (empty($this->_url[0])) {
+        $defaultFileName = explode(".",$this->_defaultFile);
+        if (empty($this->_url[0]) or $this->_url[0] == $defaultFileName[0]) {
             $this->_loadDefaultController();
             return false;
         }
@@ -82,13 +82,23 @@ class Bootstrap {
      */
     private function _loadDefaultController()
     {
-        require $this->_controllerPath . $this->_defaultFile;
-        $this->_controller = new Index();
-        if(method_exists($this->_controller, 'index')){
-           $this->_controller;
-        }else{ 
-           $this->_error ();
-        }
+//        require $this->_controllerPath . $this->_defaultFile;
+//        $this->_controller = new Index();
+//        if(method_exists($this->_controller, 'index')){
+//           $this->_controller->index();
+//        }else{ 
+//           $this->_error ();
+//        }
+        $file = $this->_controllerPath . $this->_defaultFile;
+        
+        if (file_exists($file)) {
+            require $file;
+            $this->_controller = new Index;
+            $this->_controller->loadModel($this->_url[0], $this->_modelPath);
+        } else {
+            $this->_error();
+            return false;
+        }       
     }
 
     /**
