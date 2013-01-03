@@ -11,10 +11,6 @@ class Sweet extends Controller {
         //echo Hash::create('sha256', 'jesse', HASH_PASSWORD_KEY);
         //echo Hash::create('sha256', 'test2', HASH_PASSWORD_KEY);
         //$this->view->render('sweet/sweet');
-
-
-
-
     }
     function sweet(){
         if(isset($_POST['post_stat'])){
@@ -51,7 +47,6 @@ class Sweet extends Controller {
         $this->pagination->records_per_page($records_per_page);
         $this->view->my_status = $this->model->status_list_page($this->pagination->get_page(), $records_per_page);
         $this->view->pager_link = $this->pagination->render();
-        
         
         //calendar
         //$this->calendar->setDate('December 17 2012');

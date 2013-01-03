@@ -25,7 +25,7 @@ class Bootstrap {
             $this->_loadDefaultController();
             return false;
         }
-        
+        $this->view->calendar = $this->calendar->show();
         $this->_loadExistingController();
         $this->_callControllerMethod();
     }
