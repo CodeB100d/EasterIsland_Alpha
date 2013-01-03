@@ -7,14 +7,14 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Le styles -->
-    <link href="<?php echo CSS_PATH;?>/bootstrap.css" rel="stylesheet">
+    <link href="<?php echo CSS_PATH;?>bootstrap.css" rel="stylesheet">
     <style type="text/css">
       body {
         padding-top: 60px;
         padding-bottom: 40px;
       }
     </style>
-    <link href="<?php echo CSS_PATH;?>/bootstrap-responsive.css" rel="stylesheet">     
+    <link href="<?php echo CSS_PATH;?>bootstrap-responsive.css" rel="stylesheet">     
 
  </head>
 
