@@ -3,6 +3,9 @@
 // Always provide a TRAILING SLASH (/) AFTER A PATH
 define('URL', 'http://127.0.0.1/EasterIsland_Alpha/');
 define('LIBS', 'libs/');
+define('JS_PATH', 'public/js');
+define('CSS_PATH', 'public/css');
+define('IMG_PATH', 'public/images');
 define('APP_PATH', 'app/');
 
 define('DB_TYPE', 'mysql');
