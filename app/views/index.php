@@ -66,7 +66,7 @@
       <hr>
 
       <footer>
-        <p>&copy; Company 2012</p>
+        <p>&copy; Web-Outsourcing Gateway 2013</p>
       </footer>
 
     </div>
