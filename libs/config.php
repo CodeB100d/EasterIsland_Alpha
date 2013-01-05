@@ -1,7 +1,7 @@
 <?php
 
 // Always provide a TRAILING SLASH (/) AFTER A PATH
-define('URL', 'http://127.0.0.1/EasterIsland_Alpha/');
+define('URL', 'http://localhost/EasterIsland_Alpha/');
 define('LIBS', 'libs/');
 define('JS_PATH', URL.'public/js/');
 define('CSS_PATH', URL.'public/css/');
