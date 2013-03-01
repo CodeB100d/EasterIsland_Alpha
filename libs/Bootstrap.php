@@ -7,23 +7,22 @@ class Bootstrap {
     private $_controllerPath = 'app/controllers/'; // Always include trailing slash
     private $_modelPath = 'app/models/'; // Always include trailing slash
     private $_errorFile = 'error.php';
-    private $_defaultFile = 'index.php';
+    private $_defaultFile = 'main.php';
     /**
-     * Starts the Bootstrap
+     * Simula ng bootstrap
      * 
      * @return boolean
      */
     public function init()
     {
-        // Sets the protected $_url
+        // Kelangan mong iset yung URL at gawing protected
         $this->_getUrl();
 
         // Load the default controller if no URL is set
         // eg: Visit http://localhost it loads Default Controller
-        $defaultFileName = explode(".",$this->_defaultFile);
-        if (empty($this->_url[0]) or $this->_url[0] == $defaultFileName[0]) {
-            $this->_loadDefaultController();
-            return false;
+        $defaultFileName = basename($this->_defaultFile, ".php"); 
+        if (empty($this->_url[0]) or $this->_url[0] == $defaultFileName) {
+            $this->_url[0] = $defaultFileName;
         }
 
         $this->_loadExistingController();
@@ -77,30 +76,6 @@ class Bootstrap {
         $this->_url = explode('/', $url);
     }
     
-    /**
-     * This loads if there is no GET parameter passed
-     */
-    private function _loadDefaultController()
-    {
-//        require $this->_controllerPath . $this->_defaultFile;
-//        $this->_controller = new Index();
-//        if(method_exists($this->_controller, 'index')){
-//           $this->_controller->index();
-//        }else{ 
-//           $this->_error ();
-//        }
-        $file = $this->_controllerPath . $this->_defaultFile;
-        
-        if (file_exists($file)) {
-            require $file;
-            $this->_controller = new Index;
-            $this->_controller->loadModel($this->_url[0], $this->_modelPath);
-        } else {
-            $this->_error();
-            return false;
-        }       
-    }
-
     /**
      * Load an existing controller if there IS a GET parameter passed
      * 
@@ -162,9 +137,9 @@ class Bootstrap {
                 //Controller->Method(Param1, Param2)
                 $this->_controller->{$this->_url[1]}();
                 break;
-            
+
             default:
-                $this->_controller->index();
+                $this->_controller->{"index"}();
                 break;
         }
     }
