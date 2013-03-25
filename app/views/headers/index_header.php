@@ -8,7 +8,7 @@
         <meta name="author" content="">
 
 
-        <link href="<?php echo CSS_PATH; ?>bootstrap.css" rel="stylesheet">
+        <link href="<?php echo PUBLIC_CSS_PATH; ?>bootstrap.css" rel="stylesheet">
 
         <style type="text/css">
             body {
@@ -114,7 +114,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
                 right: 0;
                 bottom: 0;
                 left: 0;
-                background: url(<?php echo IMG_PATH; ?>bgs/woven.png) repeat center center;
+                background: url(<?php echo PUBLIC_IMG_PATH; ?>bgs/woven.png) repeat center center;
                 opacity: .2;
             }
 
@@ -131,7 +131,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 
         </style>
         <link href='http://fonts.googleapis.com/css?family=Dosis:200|Lato:100' rel='stylesheet' type='text/css'>
-        <link href="<?php echo CSS_PATH; ?>bootstrap-responsive.css" rel="stylesheet">
+        <link href="<?php echo PUBLIC_CSS_PATH; ?>bootstrap-responsive.css" rel="stylesheet">
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
           <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>

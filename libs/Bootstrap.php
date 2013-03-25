@@ -3,11 +3,13 @@ class Bootstrap {
 
     private $_url = null;
     private $_controller = null;
-    
-    private $_controllerPath = 'app/controllers/'; // Always include trailing slash
-    private $_modelPath = 'app/models/'; // Always include trailing slash
-    private $_errorFile = 'error.php';
-    private $_defaultFile = 'main.php';
+    private $_autoloads = array();
+    private $_cstart = 0;
+    private $_controllerPath = null; // Always include trailing slash
+    private $_errorControllerPath = null; // Always include trailing slash
+    //private $_modelPath = 'app/models/'; // Always include trailing slash
+    //private $_errorFile = 'error.php';
+    //private $_defaultFile = 'main.php';
     /**
      * Simula ng bootstrap
      * 
@@ -15,7 +17,21 @@ class Bootstrap {
      */
     public function init()
     {
-        // Kelangan mong iset yung URL at gawing protected
+        //Initiate M-V-C
+        $this->_mvcLoader();
+        
+        //Initialize natin yung mga configurations
+        $d = opendir( APP_PATH_CONFIG );
+         while( false !== ( $f = readdir ( $d ) ) ) {
+                 $fName = APP_PATH_CONFIG . $f;
+                 if( is_file ( $fName ) ) {
+                     require_once ( $fName ) ;
+                 }
+         }
+        //assign the autoloads
+        //$this->_autoloads = $autoload;
+        require(LIBS."Config.php");
+        // Kelangan mong isset yung URL at gawing protected
         $this->_getUrl();
 
         // Load the default controller if no URL is set
@@ -25,10 +41,10 @@ class Bootstrap {
             $this->_url[0] = $defaultFileName;
         }
 
-        $this->_loadExistingController();
+        $this->_loadExistingController($autoload);
         $this->_callControllerMethod();
     }
-    
+
     /**
      * (Optional) Set a custom path to controllers
      * @param string $path
@@ -36,6 +52,7 @@ class Bootstrap {
     public function setControllerPath($path)
     {
         $this->_controllerPath = trim($path, '/') . '/';
+        $this->_errorControllerPath = $this->_controllerPath;
     }
     
     /**
@@ -53,7 +70,7 @@ class Bootstrap {
      */
     public function setErrorFile($path)
     {
-        $this->_errorFile = trim($path, '/');
+        $this->_errorFile = trim($path, '/').".php";
     }
     
     /**
@@ -62,7 +79,7 @@ class Bootstrap {
      */
     public function setDefaultFile($path)
     {
-        $this->_defaultFile = trim($path, '/');
+        $this->_defaultFile = trim($path, '/').".php";
     }
     
     /**
@@ -70,6 +87,7 @@ class Bootstrap {
      */
     private function _getUrl()
     {
+        //var_dump($_GET['url']);
         $url = isset($_GET['url']) ? $_GET['url'] : null;
         $url = rtrim($url, '/');
         $url = filter_var($url, FILTER_SANITIZE_URL);
@@ -81,14 +99,38 @@ class Bootstrap {
      * 
      * @return boolean|string
      */
-    private function _loadExistingController()
+    private function _loadExistingController($autoload)
     {
-        $file = $this->_controllerPath . $this->_url[0] . '.php';
+        if( $this->_checkIfDir( $this->_url[0] ) ) {
+           
+           $this->_controllerPath .= $this->_url[0]."/";
+           
+           unset($this->_url[0]);
+           $this->_url = array_values($this->_url);
+           
+           if( !empty ( $this->_url[0] )){
+               if( $this->_checkIfDir( $this->_url[ 0 ] ) ){
+                  $this->_controllerPath .= $this->_url[0];
+                  unset($this->_url[0]);
+                  $this->_url = array_values($this->_url);
+               }
+           }
+        }
+      
+        $page = null;
+        if( isset ( $this->_url[0] ) )
+           $page = $this->_url[0] ;
+        else{
+            $this->_error();
+            return false;
+        }
         
+        $file = $this->_controllerPath . $page . '.php';
+        //var_dump($this->_url);
         if (file_exists($file)) {
             require $file;
-            $this->_controller = new $this->_url[0];
-            $this->_controller->loadModel($this->_url[0], $this->_modelPath);
+            $this->_controller = new $this->_url[0]($autoload);
+            //$this->_controller->loadModel($this->_url[0], $this->_modelPath);
         } else {
             $this->_error();
             return false;
@@ -108,7 +150,7 @@ class Bootstrap {
     private function _callControllerMethod()
     {
         $length = count($this->_url);
-        
+
         // Make sure the method we are calling exists
         if ($length > 1) {
             if (!method_exists($this->_controller, $this->_url[1])) {
@@ -150,10 +192,34 @@ class Bootstrap {
      * @return boolean
      */
     private function _error() {
-        require $this->_controllerPath . $this->_errorFile;
+        require $this->_errorControllerPath . $this->_errorFile;
         $this->_controller = new Error();
         $this->_controller->index();
         return false;
     }
+    //MVC Foundation Loader
+    private function _mvcLoader(){
+        //Initialize natin yung mga configurations
+       $lib = opendir( LIBS );
+       while( false !== ( $l = readdir ( $lib ) ) ) {
+               $lName = LIBS . $l;
+               if( is_file ( $lName ) && $l != 'Bootstrap.php' && $l != 'Config.php') {
+                   require_once ( $lName ) ;
+               }
+       }
+       require_once (APP_PATH."crux/EI_Controller.php");
+    }
+    private function _checkIfDir($dir){
+      $path = APP_PATH_CONTROLLER; // '.' for current
+      foreach (new DirectoryIterator($path) as $file)
+      {
+          if($file->isDot()) continue;
 
+          if( $file->isDir())
+          {
+              if( $file->getFilename() == $dir)
+                 return true;
+          }
+      }    
+    }
 }

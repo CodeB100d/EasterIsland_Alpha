@@ -1,17 +1,17 @@
 <!doctype html>
 <html>
 <head>
-    <base href="<?php echo URL ?>">
+    <base href="<?php echo BASE_URL ?>">
     <title><?php if(!empty($this->page_title)) echo $this->page_title; else echo 'Sweet'; ?></title>
-    <link rel="stylesheet" href="<?php echo URL; ?>public/css/default.css" />
-    <link rel="stylesheet" href="<?php echo URL; ?>public/css/pagination.css" />
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>public/css/default.css" />
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>public/css/pagination.css" />
 
     <?php
     if (isset($this->js)) 
     {
         foreach ($this->js as $js)
         {
-            echo '<script type="text/javascript" src="'.URL.'views/'.$js.'"></script>';
+            echo '<script type="text/javascript" src="'.BASE_URL.'views/'.$js.'"></script>';
         }
     }
     ?>
@@ -48,7 +48,9 @@
 </head>
 <body>
 
-<?php Session::init(); ?>
+<?php Session::init(); 
+   
+?>
     
 <div id="header">
     <div class="center">
@@ -67,7 +69,7 @@
                 <li><a href="#">Portfolio</a></li>
                 <li><a href="#">Contact</a></li>
                 <li><a href="#">Just Click</a></li>
-                <li><a href="<?php echo URL.'sweet/logout' ?>">Logout</a></li>
+                <li><a href="<?php echo BASE_URL.'sweet/logout' ?>">Logout</a></li>
                 <div class="clear"></div>
             </ul>
         </div>

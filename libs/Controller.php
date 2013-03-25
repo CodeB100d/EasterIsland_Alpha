@@ -1,23 +1,84 @@
 <?php
 
 class Controller {
-
-    function __construct() {
+    public $data = null;
+    public function __construct($autoloads=array()) {
         //echo 'Main controller<br />';
+        //
+        //Initiate View inside the controller
         $this->view = new View();
-        $this->form_validate = new FormValidator();
-        $this->pagination = new Zebra_Pagination();
-        $this->calendar = new SimpleCalendar();
-        $this->encrypt = new PasswordHash(8, FALSE);
-
+       
+        //Check for Autoload Utilities
+        $this->_autoLoader($autoloads);
+        //var_dump($autoloads);
+        //$this->form_validate = new FormValidator();
+        //$this->pagination = new Zebra_Pagination();
+        //$this->calendar = new SimpleCalendar();
+        //$this->encrypt = new PasswordHash(8, FALSE);
     }
-    public function loadModel($name, $modelPath = 'models/') {
-        $path = $modelPath . $name.'_model.php';
+    /*
+     * The reason why the loaders are separate in case it will be use in an independent call
+     */
+    //Load Models
+    public function loadModel($name, $path = null) {
+        if(!empty($path)) $path .= "/";
+           
+        $path = APP_PATH_MODEL . $path . strtolower($name).'.php';
         
         if (file_exists($path)) {
-            require $modelPath .$name.'_model.php';
-            $modelName = $name . '_Model';
-            $this->model = new $modelName();
-        }        
+            require $path;
+            $this->$name = new $name();
+            return true;
+        }
+        else return false;
+    }
+    //Load Utilities
+    public function loadUtils($name , $path = null){
+         if(!empty($path)) $path .= "/";
+       
+        $path = UTILS . $path . $name . '.php';
+        
+        if (file_exists($path)) {
+            require $path;
+            $this->$name = new $name();
+            return true;
+        }
+        else return false;
+    }
+     //Load Controller
+    public function loadController($name , $path = null){
+        if(!empty($path)) $path .= "/"; 
+       
+        $path = APP_PATH_CONTROLLER . $path . $name.'.php';
+        
+        if (file_exists($path)) {
+            require $path;
+            $this->$name = new $name();
+            return true;
+        }
+        else return false;
+    }   
+    
+    
+    private function _autoLoader($autoload){
+       $loaderFunc = "";
+       foreach($autoload as $loadName => $loadValue){
+               switch($loadName){
+                  case "utils":
+                     $loaderFunc = "loadUtils";
+                     break;
+                  case "model":
+                     $loaderFunc = "loadModel";
+                     break;
+                  case "controller":
+                     $loaderFunc = "loadController";
+                     break;
+               }
+               foreach($loadValue as $l) {
+                  if( $this->$loaderFunc( $l ) == false ) {
+                     die("Easter Island cannot find the file <strong>$l</strong> in your $loadName directory.");
+                  }
+               }
+       }
     }
 }

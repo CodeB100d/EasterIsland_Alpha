@@ -11,7 +11,7 @@
                 <li><a href="#">Documentation</a></li>
                 <li><a href="#">Contact</a></li>
             </ul>
-            <h3 class="muted"><img src="<?php echo IMG_PATH ?>logo.png"></h3>
+            <h3 class="muted"><img src="<?php echo PUBLIC_IMG_PATH ?>logo.png"></h3>
         </div>
 
         <hr>
@@ -26,7 +26,7 @@
 </div>
 
 
-<div style="background-color: #333; padding: 1px 20px; color: #fff; background-image: url('<?php echo IMG_PATH; ?>bgs/fake_brick.png');">
+<div style="background-color: #333; padding: 1px 20px; color: #fff; background-image: url('<?php echo PUBLIC_IMG_PATH; ?>bgs/fake_brick.png');">
     <div class="container-narrow">
         <div class="row-fluid marketing">
             <div class="span6">

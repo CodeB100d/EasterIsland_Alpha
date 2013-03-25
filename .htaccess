@@ -1,8 +1,14 @@
 php_flag display_errors on
 php_value error_reporting 9999
 
+#Options -Multiviews -Indexes +FollowSymLinks
+
 RewriteEngine On
 RewriteBase /EasterIsland_Alpha/
+DirectorySlash On
+
+# remove trailing slash
+RewriteRule ^(.*)\/(\?.*)?$ $1$2 [R=301,L]
 
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
