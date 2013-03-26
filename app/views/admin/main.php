@@ -8,9 +8,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Le styles -->
-    <link rel="stylesheet" type="text/css" href="<?php echo PUBLIC_CSS_PATH ?>metro-bootstrap.css">
-
-
+    <link rel="stylesheet" type="text/css" href="<?php echo PUBLIC_CSS_PATH ?>metro-bootstrap.css" />
+    <!-- PARAM GRID -->
+    <link rel="stylesheet" href="<?php echo PUBLIC_CSS_PATH ?>grid/pqgrid.min.css" />
+     
     <style>
         body
         {
@@ -27,7 +28,7 @@
    <div class="row">
 <div class="subnav navbar-fixed-top" style="-webkit-box-shadow: 0 1px 10px rgba(0,0,0,.1);box-shadow: 0 1px 10px rgba(0,0,0,.1); background: #fff">
    <div class="span12 inner" style="float: none; margin: 0 auto;">   
-    <h3 class="span2" style=" margin-bottom: 0px;padding: 0; text-transform: none; margin-left: 0; margin-top: 0px;"> <img src="<?php echo PUBLIC_IMG_PATH;?>easterislandlogo.png" width="10%" /> EasterIsland</h3>
+    <h3 class="span2" style=" margin-bottom: 0px;padding: 0; text-transform: none; margin-left: 0; margin-top: 0px;">EasterIsland</h3>
     <ul class="nav nav-pills span10" style="margin-bottom: 5px; margin-top: 10px;">
        <li><a href="#badges">Basic Information</a></li>
       <li class="dropdown">
@@ -114,9 +115,7 @@
           <li><a href="#"><i class="icon-book"></i>Link</a></li>
           <li><a href="#"><i class="icon-book"></i>Link</a></li>
         </ul>
-
    </div> -->
-
         
 <div class="row">
       <div class="hero-unit">
@@ -136,33 +135,77 @@
 
         </div><!--/span-->
       </div><!--/row-->
-<h2>Meet the Team!</h2>      
+        
       <div class="row-fluid">
-        <div class="span4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">View details »</a></p>
-
+        <div class="span8">
+           <h2>Grid System Powered by ParamGrid.</h2>    
+           <div>
+         <div id="grid_array"></div>
+           </div>
         </div><!--/span-->
         <div class="span4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">View details »</a></p>
-        </div><!--/span-->
-        <div class="span4">
-
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">View details »</a></p>
-        </div><!--/span-->
+           <h2>Time Ago</h2>    
+              <div>
+         <abbr class="timeago" title="February 10, 1986"></abbr> <br/>
+         <abbr class="timeago1" title="03/10/2012"></abbr> <br/>
+         <abbr class="timeago2"></abbr>
+           </div>
+        </div>
       </div><!--/row-->
+ 
+     
+      <h2>CkEditor.</h2>      
+      <div class="row-fluid">
+        <div class="span8">
+           <div style="float: left;">
+			<textarea class="ckeditor" cols="80" id="editor1" name="editor1" rows="10">
+				&lt;h1&gt;&lt;img alt=&quot;Saturn V carrying Apollo 11&quot; class=&quot;right&quot; src=&quot;assets/sample.jpg&quot;/&gt; Apollo 11&lt;/h1&gt; &lt;p&gt;&lt;b&gt;Apollo 11&lt;/b&gt; was the spaceflight that landed the first humans, Americans &lt;a href=&quot;http://en.wikipedia.org/wiki/Neil_Armstrong&quot; title=&quot;Neil Armstrong&quot;&gt;Neil Armstrong&lt;/a&gt; and &lt;a href=&quot;http://en.wikipedia.org/wiki/Buzz_Aldrin&quot; title=&quot;Buzz Aldrin&quot;&gt;Buzz Aldrin&lt;/a&gt;, on the Moon on July 20, 1969, at 20:18 UTC. Armstrong became the first to step onto the lunar surface 6 hours later on July 21 at 02:56 UTC.&lt;/p&gt; &lt;p&gt;Armstrong spent about &lt;s&gt;three and a half&lt;/s&gt; two and a half hours outside the spacecraft, Aldrin slightly less; and together they collected 47.5 pounds (21.5&amp;nbsp;kg) of lunar material for return to Earth. A third member of the mission, &lt;a href=&quot;http://en.wikipedia.org/wiki/Michael_Collins_(astronaut)&quot; title=&quot;Michael Collins (astronaut)&quot;&gt;Michael Collins&lt;/a&gt;, piloted the &lt;a href=&quot;http://en.wikipedia.org/wiki/Apollo_Command/Service_Module&quot; title=&quot;Apollo Command/Service Module&quot;&gt;command&lt;/a&gt; spacecraft alone in lunar orbit until Armstrong and Aldrin returned to it for the trip back to Earth.&lt;/p&gt; &lt;h2&gt;Broadcasting and &lt;em&gt;quotes&lt;/em&gt; &lt;a id=&quot;quotes&quot; name=&quot;quotes&quot;&gt;&lt;/a&gt;&lt;/h2&gt; &lt;p&gt;Broadcast on live TV to a world-wide audience, Armstrong stepped onto the lunar surface and described the event as:&lt;/p&gt; &lt;blockquote&gt;&lt;p&gt;One small step for [a] man, one giant leap for mankind.&lt;/p&gt;&lt;/blockquote&gt; &lt;p&gt;Apollo 11 effectively ended the &lt;a href=&quot;http://en.wikipedia.org/wiki/Space_Race&quot; title=&quot;Space Race&quot;&gt;Space Race&lt;/a&gt; and fulfilled a national goal proposed in 1961 by the late U.S. President &lt;a href=&quot;http://en.wikipedia.org/wiki/John_F._Kennedy&quot; title=&quot;John F. Kennedy&quot;&gt;John F. Kennedy&lt;/a&gt; in a speech before the United States Congress:&lt;/p&gt; &lt;blockquote&gt;&lt;p&gt;[...] before this decade is out, of landing a man on the Moon and returning him safely to the Earth.&lt;/p&gt;&lt;/blockquote&gt; &lt;h2&gt;Technical details &lt;a id=&quot;tech-details&quot; name=&quot;tech-details&quot;&gt;&lt;/a&gt;&lt;/h2&gt; &lt;table align=&quot;right&quot; border=&quot;1&quot; bordercolor=&quot;#ccc&quot; cellpadding=&quot;5&quot; cellspacing=&quot;0&quot; style=&quot;border-collapse:collapse;margin:10px 0 10px 15px;&quot;&gt; &lt;caption&gt;&lt;strong&gt;Mission crew&lt;/strong&gt;&lt;/caption&gt; &lt;thead&gt; &lt;tr&gt; &lt;th scope=&quot;col&quot;&gt;Position&lt;/th&gt; &lt;th scope=&quot;col&quot;&gt;Astronaut&lt;/th&gt; &lt;/tr&gt; &lt;/thead&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;Commander&lt;/td&gt; &lt;td&gt;Neil A. Armstrong&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;Command Module Pilot&lt;/td&gt; &lt;td&gt;Michael Collins&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;Lunar Module Pilot&lt;/td&gt; &lt;td&gt;Edwin &amp;quot;Buzz&amp;quot; E. Aldrin, Jr.&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; &lt;p&gt;Launched by a &lt;strong&gt;Saturn V&lt;/strong&gt; rocket from &lt;a href=&quot;http://en.wikipedia.org/wiki/Kennedy_Space_Center&quot; title=&quot;Kennedy Space Center&quot;&gt;Kennedy Space Center&lt;/a&gt; in Merritt Island, Florida on July 16, Apollo 11 was the fifth manned mission of &lt;a href=&quot;http://en.wikipedia.org/wiki/NASA&quot; title=&quot;NASA&quot;&gt;NASA&lt;/a&gt;&amp;#39;s Apollo program. The Apollo spacecraft had three parts:&lt;/p&gt; &lt;ol&gt; &lt;li&gt;&lt;strong&gt;Command Module&lt;/strong&gt; with a cabin for the three astronauts which was the only part which landed back on Earth&lt;/li&gt; &lt;li&gt;&lt;strong&gt;Service Module&lt;/strong&gt; which supported the Command Module with propulsion, electrical power, oxygen and water&lt;/li&gt; &lt;li&gt;&lt;strong&gt;Lunar Module&lt;/strong&gt; for landing on the Moon.&lt;/li&gt; &lt;/ol&gt; &lt;p&gt;After being sent to the Moon by the Saturn V&amp;#39;s upper stage, the astronauts separated the spacecraft from it and travelled for three days until they entered into lunar orbit. Armstrong and Aldrin then moved into the Lunar Module and landed in the &lt;a href=&quot;http://en.wikipedia.org/wiki/Mare_Tranquillitatis&quot; title=&quot;Mare Tranquillitatis&quot;&gt;Sea of Tranquility&lt;/a&gt;. They stayed a total of about 21 and a half hours on the lunar surface. After lifting off in the upper part of the Lunar Module and rejoining Collins in the Command Module, they returned to Earth and landed in the &lt;a href=&quot;http://en.wikipedia.org/wiki/Pacific_Ocean&quot; title=&quot;Pacific Ocean&quot;&gt;Pacific Ocean&lt;/a&gt; on July 24.&lt;/p&gt; &lt;hr/&gt; &lt;p style=&quot;text-align: right;&quot;&gt;&lt;small&gt;Source: &lt;a href=&quot;http://en.wikipedia.org/wiki/Apollo_11&quot;&gt;Wikipedia.org&lt;/a&gt;&lt;/small&gt;&lt;/p&gt;
+			</textarea>              
+           </div>
+        </div><!--/span-->
+        <div class="span4">
+            <table id="gravity" cellspacing="5" class="table">
+              <tbody><tr>
+                <td>
+                  <a id="north-west" href="#" original-title="This is an example of north-west gravity">Northwest</a>
+                </td>
+                <td>
+                  <a id="north" href="#" original-title="This is an example of north gravity">North</a>
+                </td>
+                <td>
+                  <a id="north-east" href="#" original-title="This is an example of north-east gravity">Northeast</a>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <a id="west" href="#" original-title="This is an example of west gravity">West</a>
+                </td>
+                <td>&nbsp;</td>
+                <td>
+                  <a id="east" href="#" original-title="This is an example of east gravity">East</a>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <a id="south-west" href="#" original-title="This is an example of south-west gravity">Southwest</a>
+                </td>
+                <td>
+                  <a id="south" href="#" original-title="This is an example of south gravity">South</a>
+                </td>
+                <td>
+                  <a id="south-east" href="#" original-title="This is an example of south-east gravity">Southeast</a>
+                </td>
+              </tr>
+            </tbody></table>        
+        </div>
+      </div><!--/row-->      
     </div>      
      
     </div>
     <div class="container">
            <footer class="footer span12">
         
-        <p>A <a href="http://twitter.com/talkslab" target="_blank">talkslab</a> production by <a href="http://twitter.com/gsferreira" target="_blank">gsferreira</a>, <a href="http://twitter.com/nelsonreis" target="_blank">nelsonreis</a> and <a href="http://twitter.com/ruimlneves" target="_blank">ruimlneves</a>.</p>
+        <p>POWERED by: <a href="#"> Web Outsourcing Gateway. </a></p>
       </footer>   
     </div>
     <!-- /container -->
@@ -188,7 +231,19 @@
 <!-- Highchart! -->
 <script src="<?php echo PUBLIC_JS_PATH ?>highchart/js/highcharts.js"></script>
 <script src="<?php echo PUBLIC_JS_PATH ?>highchart/js/modules/exporting.js"></script>
- 
+
+<!-- Param Grid -->
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/base/jquery-ui.css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+<script src="<?php echo PUBLIC_JS_PATH ?>grid/pqgrid.min.js"></script>
+
+<!-- CKEditor -->
+<script src="<?php echo PUBLIC_JS_PATH ?>ckeditor/ckeditor.js"></script>
+
+<!-- Time Ago -->
+<script src="<?php echo PUBLIC_JS_PATH ?>timeago/jquery.timeago.js" type="text/javascript"></script>
+
+
 <script type="text/javascript">
 $(function () {
     var chart;
@@ -304,7 +359,42 @@ $(function () {
             }]
         });
     });
-    
+        var arrayData = [[1, 'Exxon Mobil', '339,938.0', '36,130.0'],
+            [2, 'Wal-Mart Stores', '315,654.0', '11,231.0'],
+			[3, 'Royal Dutch Shell', '306,731.0', '25,311.0'],
+			[4, 'BP', '267,600.0', '22,341.0'],
+			[5, 'General Motors', '192,604.0', '-10,567.0'],
+			[6, 'Chevron', '189,481.0', '14,099.0'],
+			[7, 'DaimlerChrysler', '186,106.3', '3,536.3'],
+			[8, 'Toyota Motor', '185,805.0', '12,119.6'],
+			[9, 'Ford Motor', '177,210.0', '2,024.0'],
+			[10, 'ConocoPhillips', '166,683.0', '13,529.0'],
+			[11, 'General Electric', '157,153.0', '16,353.0'],
+			[12, 'Total', '152,360.7', '15,250.0'],
+			[13, 'ING Group', '138,235.3', '8,958.9'],
+			[14, 'Citigroup', '131,045.0', '24,589.0'],
+			[15, 'AXA', '129,839.2', '5,186.5'],
+			[16, 'Allianz', '121,406.0', '5,442.4'],
+			[17, 'Volkswagen', '118,376.6', '1,391.7'],
+			[18, 'Fortis', '112,351.4', '4,896.3'],
+			[19, 'Crédit Agricole', '110,764.6', '7,434.3'],
+			[20, 'American Intl. Group', '108,905.0', '10,477.0']];
+
+
+        var obj = { width: 700, height: 400, title: "Resizable Grid" };
+        obj.colModel = [{ title: "Rank", width: 100 }, { title: "Company", width: 200 }, 
+            { title: "Revenues ($ millions)", width: 150 },
+            { title: "Profits ($ millions)", width: 150}];
+        obj.dataModel = { data: arrayData };
+        $("#grid_array").pqGrid(obj);  
+        $("#grid_array").pqGrid("option", "resizable", true);
+        
+        //THIS FOR THE TIME AGO
+        jQuery("abbr.timeago").timeago();
+        jQuery("abbr.timeago1").timeago();
+        var tt2 = jQuery.timeago(new Date());
+        $("abbr.timeago2").html(tt2);
+
 });
 
   var _gaq = _gaq || [];
