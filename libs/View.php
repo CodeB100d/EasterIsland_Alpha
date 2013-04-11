@@ -25,7 +25,7 @@ class View {
             //if($noInclude) require APP_PATH . 'views/footer.php';
     }
     
-    private function loadFunc($name){
+    public function loadFunc($name){
         $path = APP_PATH_FUNCTION . $name.'.php';
         
         if (file_exists($path)) {
@@ -38,5 +38,6 @@ class View {
     public function __set($name, $value) {
         die("Cannot add new property \$$name to instance of " . __CLASS__);
     }
+     
     
 }

@@ -1,3 +1,4 @@
+
 <html>
 <head>
 <title><?php if(!empty($this->page_title)) echo $this->page_title; else echo 'Easter Island'; ?></title>

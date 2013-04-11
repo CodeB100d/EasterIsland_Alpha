@@ -14,4 +14,7 @@ $autoload['model'] = array();
 //Controller Autoload
 $autoload['controller'] = array();
 
+//function Autoload
+$autoload['function'] = array();
+
 ?>

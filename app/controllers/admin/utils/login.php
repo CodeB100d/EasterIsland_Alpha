@@ -1,6 +1,6 @@
 <?php
 class Login extends EI_Controller{
-    function index($var="") {
+    function index() {
         $this->loadUtils("FormValidator");
         $this->loadUtils("PasswordHash");
         $this->loadModel("Login_Model","admin");

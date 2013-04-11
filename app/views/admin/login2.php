@@ -1,3 +1,7 @@
+<?php
+   $this->loadFunc("sample");
+   blahblah();
+?>
 <!DOCTYPE html>
 <!-- saved from url=(0023)http://localhost:49558/ -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

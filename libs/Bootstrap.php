@@ -33,7 +33,7 @@ class Bootstrap {
         require(LIBS."Config.php");
         // Kelangan mong isset yung URL at gawing protected
         $this->_getUrl();
-
+        $this->_autoloads = $autoload;
         // Load the default controller if no URL is set
         // eg: Visit http://localhost it loads Default Controller
         $defaultFileName = basename($this->_defaultFile, ".php"); 
@@ -41,7 +41,7 @@ class Bootstrap {
             $this->_url[0] = $defaultFileName;
         }
 
-        $this->_loadExistingController($autoload);
+        $this->_loadExistingController();
         $this->_callControllerMethod();
     }
 
@@ -99,12 +99,14 @@ class Bootstrap {
      * 
      * @return boolean|string
      */
-    private function _loadExistingController($autoload)
+    private function _loadExistingController()
     {
+       $dir = null;
         if( $this->_checkIfDir( $this->_url[0] ) ) {
            
-           $this->_controllerPath .= $this->_url[0]."/";
+           $dir = $this->_url[0];
            
+           $this->_controllerPath .= $this->_url[0]."/";
            unset($this->_url[0]);
            $this->_url = array_values($this->_url);
            
@@ -120,16 +122,21 @@ class Bootstrap {
         $page = null;
         if( isset ( $this->_url[0] ) )
            $page = $this->_url[0] ;
-        else{
+        else{              
+           include(APP_PATH_CONFIG."routing.php");
+           if(isset($route[$dir])){
+            $page = $route[$dir];
+           }else{  
             $this->_error();
             return false;
+           }
         }
         
         $file = $this->_controllerPath . $page . '.php';
         //var_dump($this->_url);
         if (file_exists($file)) {
             require $file;
-            $this->_controller = new $this->_url[0]($autoload);
+            $this->_controller = new $page($this->_autoloads);
             //$this->_controller->loadModel($this->_url[0], $this->_modelPath);
         } else {
             $this->_error();
