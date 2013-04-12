@@ -3,7 +3,7 @@ class Login_Model extends Model{
 
     public function can_login()
     {
-        $user =$this->db->select('SELECT username, password FROM users WHERE username = :username', array(':username' => $_POST['username']));
+        $user =$this->db->select('SELECT * FROM users WHERE username = :username', array(':username' => $_POST['username']));
         if(count($user)>0){
             foreach($user as $user_info);
             $t_hasher = new PasswordHash(8, FALSE);
@@ -12,33 +12,25 @@ class Login_Model extends Model{
                 Session::init();
                 Session::set('loggedIn', true);
                 Session::set('userid', $user_info['id']);
+                Session::set('username', $user_info['username']);
                 return true;
             }
             else return false;
         }else return false;
-        /*
-        $sth = $this->db->prepare("SELECT * FROM users WHERE username = :username AND password = :password");
-        $sth->execute(array(
-            ':username' => $_POST['login'],
-            ':password' => Hash::create('sha256', $_POST['password'], HASH_PASSWORD_KEY)
-        ));
-        
-        $data = $sth->fetch();
-        
-        $count =  $sth->rowCount();
-        if ($count > 0) {
-            // login
-            Session::init();
-            Session::set('role', $data['role']);
-            Session::set('loggedIn', true);
-            Session::set('userid', $data['userid']);
-            header('location: ../dashboard');
-        } else {
-            header('location: ../login');
-        }
-        
-        */
     }
-
+	
+	public function check_if_logged_in(){
+		Session::init();
+		if(!Session::get('loggedIn') || !Session::get('userid'))
+			header('location: '. URL .'admin/main/login');
+			
+	}
+	
+	public function logout(){
+		Session::init();
+		Session::unset_data('loggedIn');
+		Session::unset_data('userid');
+		header('location: '. URL .'admin/main/login');
+	}
 }
 ?>

@@ -1,7 +1,4 @@
 <?php
-/**
- * 
- */
 class Auth
 {
     
@@ -14,6 +11,5 @@ class Auth
             header('location: ../login');
             exit;
         }
-    }
-    
+    }  
 }

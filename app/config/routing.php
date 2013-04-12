@@ -6,6 +6,5 @@
  *
  *  where admin is the directory name and login is the default controller;
  */
-$route["admin"] = "login";
-
+$route["admin"] = "main";
 ?>
