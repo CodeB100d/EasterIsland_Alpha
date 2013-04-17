@@ -5,6 +5,7 @@
 	<title>Admin Panel</title>
 	<base href="<?php echo URL.'admin/'; ?>">
 	<link rel="stylesheet" href="<?php echo PUBLIC_CSS_PATH ?>bootstrap_by_pau.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="<?php echo PUBLIC_CSS_PATH ?>jasny-bootstrap.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="<?php echo PUBLIC_CSS_PATH ?>font-awesome.min.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="<?php echo PUBLIC_CSS_PATH ?>style.css" type="text/css" media="screen" />
 	<!--[if IE 7]>

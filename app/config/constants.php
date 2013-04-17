@@ -24,4 +24,5 @@ define('URL', 'http://localhost/EasterIsland_Alpha/');
 define('PUBLIC_JS_PATH', URL.'public/js/');
 define('PUBLIC_CSS_PATH', URL.'public/css/');
 define('PUBLIC_IMG_PATH', URL.'public/img/');
+define('PUBLIC_UPLOAD_PATH', URL.'public/uploads/');
 ?>

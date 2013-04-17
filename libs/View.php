@@ -34,7 +34,7 @@ class View {
         }
         else die("Cannot Load the function <strong>$name</strong>.");       
     }
-    
+
     public function __set($name, $value) {
         die("Cannot add new property \$$name to instance of " . __CLASS__);
     }

@@ -23,9 +23,7 @@
  *  @license    http://www.gnu.org/licenses/lgpl-3.0.txt GNU LESSER GENERAL PUBLIC LICENSE
  *  @package    Zebra_Pagination
  */
-
-class Zebra_Pagination
-{
+class Zebra_Pagination {
 
     /**
      *  Constructor of the class.
@@ -34,8 +32,10 @@ class Zebra_Pagination
      *
      *  @return void
      */
-    function Zebra_Pagination()
-    {
+    public $uri_segment;
+    public $base_url;
+
+    function Zebra_Pagination() {
 
         // set default starting page
         $this->page = 1;
@@ -65,7 +65,6 @@ class Zebra_Pagination
 
         // set the base url
         $this->base_url();
-
     }
 
     /**
@@ -115,8 +114,7 @@ class Zebra_Pagination
      *
      *  @return void
      */
-    function base_url($base_url = '', $preserve_query_strings = true)
-    {
+    function base_url($base_url = '', $preserve_query_strings = true) {
 
         // set the base URL
         $this->_base_url = ($base_url == '' ? $_SERVER['REQUEST_URI'] : $base_url);
@@ -135,7 +133,6 @@ class Zebra_Pagination
 
         // should query strings (other than those set in $base_url) be preserved?
         $this->_preserve_query_strings = $preserve_query_strings;
-
     }
 
     /**
@@ -148,34 +145,35 @@ class Zebra_Pagination
      *
      *  @return integer     Returns the current page's number
      */
-    function get_page()
-    {
+    function get_page() {
 
+        /*
         // if page was not already set through the "set_page" method
         if (!isset($this->page_set)) {
 
+            
             // if
             if (
-
-                // page propagation is SEO friendly
-                $this->_method == 'url' &&
-
-                // the current page is set in the URL
-                preg_match('/\b' . preg_quote($this->_variable_name) . '([0-9]+)\b/i', $_SERVER['REQUEST_URI'], $matches) > 0
-
+            // page propagation is SEO friendly
+                    $this->_method == 'url' &&
+                    // the current page is set in the URL
+                    preg_match('/\b' . preg_quote($this->_variable_name) . '([0-9]+)\b/i', $_SERVER['REQUEST_URI'], $matches) > 0
             ) {
 
                 // set the current page to whatever it is indicated in the URL
-                $this->set_page((int)$matches[1]);
+                $this->set_page($this->getUriSegment($this->uri_segment));
 
-            // if page propagation is done through GET and the current page is set in $_GET
-            } elseif (isset($_GET[$this->_variable_name])) {
-
+                // if page propagation is done through GET and the current page is set in $_GET
+            } else
+               
+            
+        }
+        */
+        if ($this->getUriSegment($this->uri_segment)!="") {
                 // set the current page to whatever it was set to
-                $this->set_page((int)$_GET[$this->_variable_name]);
-
-            }
-
+                $this->set_page($this->getUriSegment($this->uri_segment));
+        } else {
+            $this->set_page(1);
         }
 
         // get the total number of pages
@@ -186,17 +184,18 @@ class Zebra_Pagination
 
             // if current page is beyond the total number pages
             /// make the current page be the last page
-            if ($this->page > $this->_total_pages) $this->page = $this->_total_pages;
+            if ($this->page > $this->_total_pages)
+                $this->page = $this->_total_pages;
 
             // if current page is smaller than 1
             // make the current page 1
-            elseif ($this->page < 1) $this->page = 1;
-
+            elseif ($this->page < 1)
+                $this->page = 1;
         }
 
         // return the current page
+        return $this->getUriSegment($this->uri_segment);
         return $this->page;
-
     }
 
     /**
@@ -232,8 +231,7 @@ class Zebra_Pagination
      *
      *  @returns void
      */
-    function method($method)
-    {
+    function method($method) {
 
         // by default, we assume page propagation is done through GET
         $this->_method = 'get';
@@ -243,8 +241,8 @@ class Zebra_Pagination
 
         // if a valid method was specified
         // set the page propagation method
-        if ($method == 'get' || $method == 'url') $this->_method = $method;
-
+        if ($method == 'get' || $method == 'url')
+            $this->_method = $method;
     }
 
     /**
@@ -264,12 +262,10 @@ class Zebra_Pagination
      *
      *  @return void
      */
-    function padding($enabled = true)
-    {
+    function padding($enabled = true) {
 
         // set padding
         $this->_padding = $enabled;
-
     }
 
     /**
@@ -289,13 +285,11 @@ class Zebra_Pagination
      *
      *  @return void
      */
-    function records($records)
-    {
+    function records($records) {
 
         // the number of records
         // make sure we save it as an integer
-        $this->_records = (int)$records;
-
+        $this->_records = (int) $records;
     }
 
     /**
@@ -316,13 +310,11 @@ class Zebra_Pagination
      *
      *  @return void
      */
-    function records_per_page($records_per_page)
-    {
+    function records_per_page($records_per_page) {
 
         // the number of records displayed on one page
         // make sure we save it as an integer
-        $this->_records_per_page = (int)$records_per_page;
-
+        $this->_records_per_page = (int) $records_per_page;
     }
 
     /**
@@ -343,36 +335,31 @@ class Zebra_Pagination
      *
      *  @return void
      */
-    function render($return_output = false)
-    {
+    function render($return_output = false) {
 
         // get some properties of the class
         $this->get_page();
 
         // if there is a single page, or no pages at all, don't display anything
-        if ($this->_total_pages <= 1) return '';
+        if ($this->_total_pages <= 1)
+            return '';
 
         // start building output
-        $output = '<div class="pagination">';
+        $output = '<div class="pagination"><ul>';
 
         // if the number of total pages available is greater than the number of selectable pages
         // it means we can show the "previous page" link
         if ($this->_total_pages > $this->_selectable_pages) {
 
-            $output .= '<a href="' .
-
-                // the href is different if we're on the first page
-                ($this->page == 1 ? 'javascript:void(0)' : $this->_build_uri($this->page - 1)) .
-
-                // if we're on the first page, the link is disabled
-                '" class="navigation left' . ($this->page == 1 ? ' disabled' : '') . '"' .
-
-                // good for SEO
-                // http://googlewebmastercentral.blogspot.de/2011/09/pagination-with-relnext-and-relprev.html
-                ' rel="prev"' .
-
-                '>&#9668; prev</a>';
-
+            $output .= '<li><a href="' .
+                    // the href is different if we're on the first page
+                    ($this->page == 1 ? 'javascript:void(0)' : $this->_build_uri($this->page - 1)) .
+                    // if we're on the first page, the link is disabled
+                    '" class="navigation left' . ($this->page == 1 ? ' disabled' : '') . '"' .
+                    // good for SEO
+                    // http://googlewebmastercentral.blogspot.de/2011/09/pagination-with-relnext-and-relprev.html
+                    ' rel="prev"' .
+                    '>&#9668; Prev</a></li>';
         }
 
         // if the total number of pages is lesser than the number of selectable pages
@@ -382,31 +369,22 @@ class Zebra_Pagination
             for ($i = 1; $i <= $this->_total_pages; $i++) {
 
                 // render the link for each page
-                $output .= '<a href="' . $this->_build_uri($i) . '" ' .
-
-                    // make sure to highlight the currently selected page
-                    ($this->page == $i ? 'class="current"' : '') . '>' .
-
-                    // apply padding if required
-                    ($this->_padding ? str_pad($i, strlen($this->_total_pages), '0', STR_PAD_LEFT) : $i) .
-
-                    '</a>';
-
+                $output .= '<li '.($this->page == $i ? 'class="active"' : '').'><a href="' . $this->_build_uri($i) . '">'.
+                        // make sure to highlight the currently selected page
+                        // apply padding if required
+                        ($this->_padding ? str_pad($i, strlen($this->_total_pages), '0', STR_PAD_LEFT) : $i) .
+                        '</a></li>';
             }
 
-        // if the total number of pages is greater than the number of selectable pages
+            // if the total number of pages is greater than the number of selectable pages
         } else {
 
             // put a link to the first page
-            $output .= '<a href="' . $this->_build_uri(1) . '" ' .
-
-                // highlight if it is the currently selected page
-                ($this->page == 1 ? 'class="current"' : '') . '>' .
-
-                // apply padding if required
-                ($this->_padding ? str_pad('1', strlen($this->_total_pages), '0', STR_PAD_LEFT) : '1') .
-
-                '</a>';
+            $output .= '<li '.($this->page == 1 ? 'class="active"' : '').'><a href="' . $this->_build_uri(1) . '" >' .
+                    // highlight if it is the currently selected page
+                    // apply padding if required
+                    ($this->_padding ? str_pad('1', strlen($this->_total_pages), '0', STR_PAD_LEFT) : '1') .
+                    '</a></li>';
 
             // compute the number of pages to display to the left of the currently selected page
             // so that the current page is always centered
@@ -434,12 +412,10 @@ class Zebra_Pagination
 
                     // adjust it
                     $starting_page -= ($this->_selectable_pages - 2) - ($this->_total_pages - $starting_page);
-
                 }
 
                 // put the "..." after the link to the first page
                 $output .= '<span>&hellip;</span>';
-
             }
 
             // this is the number where we should stop rendering selectable pages
@@ -450,68 +426,55 @@ class Zebra_Pagination
             // if ending page would be greater than the total number of pages minus 1
             // (minus one because we don't take into account the very last page which we output automatically)
             // adjust the ending page
-            if ($ending_page > $this->_total_pages - 1) $ending_page = $this->_total_pages - 1;
+            if ($ending_page > $this->_total_pages - 1)
+                $ending_page = $this->_total_pages - 1;
 
             // place links for each page
             for ($i = $starting_page; $i <= $ending_page; $i++) {
 
-                $output .= '<a href="' . $this->_build_uri($i) . '" ' .
-
-                    // highlight the currently selected page
-                    ($this->page == $i ? 'class="current"' : '') . '>' .
-
-                    // apply padding if required
-                    ($this->_padding ? str_pad($i, strlen($this->_total_pages), '0', STR_PAD_LEFT) : $i) .
-
-                    '</a>';
-
+                $output .= '<li '.($this->page == $i ? 'class="active"' : '').'><a href="' . $this->_build_uri($i) . '" >' .
+                        // highlight the currently selected page
+                        // apply padding if required
+                        ($this->_padding ? str_pad($i, strlen($this->_total_pages), '0', STR_PAD_LEFT) : $i) .
+                        '</a></li>';
             }
 
             // place the "..." before the link to the last page, if it is the case
-            if ($this->_total_pages - $ending_page > 1) $output .= '<span>&hellip;</span>';
+            if ($this->_total_pages - $ending_page > 1)
+                $output .= '<span>&hellip;</span>';
 
             // put a link to the last page
-            $output .= '<a href="' . $this->_build_uri($this->_total_pages) . '" ' .
-
-                // highlight if it is the currently selected page
-                ($this->page == $i ? 'class="current"' : '') . '>' .
-
-                $this->_total_pages .
-
-                '</a>';
+            $output .= '<li '.($this->page == $i ? 'class="active"' : '').'><a href="' . $this->_build_uri($this->_total_pages) . '" >' .
+                    // highlight if it is the currently selected page
+                    $this->_total_pages .
+                    '</a></li>';
 
             // if the total number of available pages is greater than the number of pages to be displayed at once
             // it means we can show the "next page" link
             if ($this->_total_pages > $this->_selectable_pages) {
 
-                $output .= '<a href="' .
-
-                    // the href is different if we're on the last page
-                    ($this->page == $this->_total_pages ? 'javascript:void(0)' : $this->_build_uri($this->page + 1)) .
-
-                    // if we're on the last page, the link is disabled
-                    '" class="navigation right' . ($this->page == $this->_total_pages ? ' disabled' : '') . '"' .
-
-                    // good for SEO
-                    // http://googlewebmastercentral.blogspot.de/2011/09/pagination-with-relnext-and-relprev.html
-                    ' rel="next"' .
-
-                    '>next &#9658;</a>';
-
+                $output .= '<li><a href="' .
+                        // the href is different if we're on the last page
+                        ($this->page == $this->_total_pages ? 'javascript:void(0)' : $this->_build_uri($this->page + 1)) .
+                        // if we're on the last page, the link is disabled
+                        '" class="navigation right' . ($this->page == $this->_total_pages ? ' disabled' : '') . '"' .
+                        // good for SEO
+                        // http://googlewebmastercentral.blogspot.de/2011/09/pagination-with-relnext-and-relprev.html
+                        ' rel="next"' .
+                        '>Next &#9658;</a></li>';
             }
-
         }
 
         // finish generating the output
-        $output .= '</div>';
+        $output .= '</ul></div>';
 
         // if $return_output is TRUE
         // return the generated content
-        if ($return_output) return $output;
+        if ($return_output)
+            return $output;
 
         // if script gets this far, print generated content to the screen
         return $output;
-
     }
 
     /**
@@ -529,13 +492,11 @@ class Zebra_Pagination
      *
      *  @return void
      */
-    function selectable_pages($selectable_pages)
-    {
+    function selectable_pages($selectable_pages) {
 
         // the number of selectable pages
         // make sure we save it as an integer
-        $this->_selectable_pages = (int)$selectable_pages;
-
+        $this->_selectable_pages = (int) $selectable_pages;
     }
 
     /**
@@ -557,20 +518,20 @@ class Zebra_Pagination
      *
      *  @return void
      */
-    function set_page($page)
-    {
+    function set_page($page) {
 
         // set the current page
         // make sure we save it as an integer
+        $page = ($page!="")?$page:1;
         $this->page = (int)$page;
 
         // if the number is lower than one
         // make it '1'
-        if ($this->page < 1) $this->page = 1;
+        if ($this->page < 1)
+            $this->page = 1;
 
         // set a flag so that the "get_page" method doesn't change this value
         $this->page_set = true;
-
     }
 
     /**
@@ -590,12 +551,10 @@ class Zebra_Pagination
      *
      *  @return void
      */
-    function trailing_slash($enabled)
-    {
+    function trailing_slash($enabled) {
 
         // set the state of trailing slashes
         $this->_trailing_slash = $enabled;
-
     }
 
     /**
@@ -614,12 +573,10 @@ class Zebra_Pagination
      *
      *  @return void
      */
-    function variable_name($variable_name)
-    {
+    function variable_name($variable_name) {
 
         // set the variable name
         $this->_variable_name = strtolower($variable_name);
-
     }
 
     /**
@@ -629,9 +586,10 @@ class Zebra_Pagination
      *
      *  @return void
      */
-    function _build_uri($page)
-    {
-
+    function _build_uri($page) {
+        return $this->base_url . $page;
+        
+        /*
         // if page propagation method is through SEO friendly URLs
         if ($this->_method == 'url') {
 
@@ -640,57 +598,70 @@ class Zebra_Pagination
 
                 // build string
                 $url = str_replace('//', '/', preg_replace(
+                                // replace the currently existing value
+                                '/\b' . $this->_variable_name . '([0-9]+)\b/i',
+                                // if on the first page, remove it in order to avoid duplicate content
+                                ($page == 1 ? '' : $this->_variable_name . $page), $this->_base_url_path
+                        ));
 
-                    // replace the currently existing value
-                    '/\b' . $this->_variable_name . '([0-9]+)\b/i',
-
-                    // if on the first page, remove it in order to avoid duplicate content
-                    ($page == 1 ? '' : $this->_variable_name . $page),
-
-                    $this->_base_url_path
-
-                ));
-
-            // if the current page is not yet in the URL, set it, unless we're on the first page
-            // case in which we don't set it in order to avoid duplicate content
-            } else $url = rtrim($this->_base_url_path, '/') . '/' . ($page != 1 ? $this->_variable_name . $page : '');
+                // if the current page is not yet in the URL, set it, unless we're on the first page
+                // case in which we don't set it in order to avoid duplicate content
+            } else
+                $url = rtrim($this->_base_url_path, '/') . '/' . ($page != 1 ? $this->_variable_name . $page : '');
 
             // handle trailing slash according to preferences
             $url = rtrim($url, '/') . ($this->_trailing_slash ? '/' : '');
 
             // if values in the query string - other than those set through base_url() - are not to be preserved
             // preserve only those set initially
-            if (!$this->_preserve_query_strings) $query = implode('&', $this->_base_url_query);
+            if (!$this->_preserve_query_strings)
+                $query = implode('&', $this->_base_url_query);
 
             // otherwise, get the current query string
-            else $query = $_SERVER['QUERY_STRING'];
+            else
+                $query = $_SERVER['QUERY_STRING'];
 
             // return the built string also appending the query string, if any
             return $url . ($query != '' ? '?' . $query : '');
 
-        // if page propagation is to be done through GET
+            // if page propagation is to be done through GET
         } else {
 
             // if values in the query string - other than those set through base_url() - are not to be preserved
             // preserve only those set initially
-            if (!$this->_preserve_query_strings) $query = $this->_base_url_query;
+            if (!$this->_preserve_query_strings)
+                $query = $this->_base_url_query;
 
             // otherwise, get the current query string, if any, and transform it to an array
-            else parse_str($_SERVER['QUERY_STRING'], $query);
+            else
+                parse_str($_SERVER['QUERY_STRING'], $query);
 
             // if not the first page
-            if ($page != 1) 
+            if ($page != 1)
 
-                // add/update the page number
+            // add/update the page number
                 $query[$this->_variable_name] = $page;
 
             // don't use the "page" variable in order to avoid duplicate content
-            else unset($query[$this->_variable_name]);
+            else
+                unset($query[$this->_variable_name]);
 
             // make sure the returned HTML is W3C compliant
             return htmlspecialchars($this->_base_url_path . (!empty($query) ? '?' . http_build_query($query) : ''));
         }
+         * 
+         */
+    }
 
+    //get uri segments
+    function getUriSegments() {
+        return explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+    }
+
+    //get uri segment
+    function getUriSegment($n) {
+        $segs = $this->getUriSegments();
+        return (count($segs) > 0 && count($segs) >= ($n - 1) && (count($segs)-1)>=$n ) ? $segs[$n] : '';
     }
 
 }
