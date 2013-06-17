@@ -7,5 +7,5 @@ $database['db_type'] = 'mysql';
 $database['db_host'] = 'localhost';
 $database['db_name'] = 'db_ei';
 $database['db_user'] = 'root';
-$database['db_pass'] = '';
+$database['db_pass'] = 'adminadmin123';
 ?>
